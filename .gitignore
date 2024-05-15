@@ -1,0 +1,9 @@
+# Folders
+.idea/
+bin/
+obj/
+packages/
+_ReSharper.Caches/
+
+# Files
+riderModule.iml
