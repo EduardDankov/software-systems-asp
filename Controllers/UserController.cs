@@ -33,6 +33,18 @@ public class UserController(IUserService userService) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] Models.User user)
     {
+        List<Models.User> users = await userService.GetAllUsers();
+
+        if (users.Any(u => u.Username == user.Username))
+        {
+            return Conflict($"Username '{user.Username}' is already taken.");
+        }
+
+        if (users.Any(u => u.Email == user.Email))
+        {
+            return Conflict($"Email '{user.Email}' is already taken.");
+        }
+        
         await userService.AddUser(user);
         return CreatedAtRoute("GetUserById", new { id = user.UserId }, user);
     }
