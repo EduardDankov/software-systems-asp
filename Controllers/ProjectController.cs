@@ -14,6 +14,13 @@ public class ProjectController(IProjectService projectService) : ControllerBase
         return Ok(await projectService.GetAllProjects());
     }
 
+    [HttpGet("count")]
+    public async Task<IActionResult> GetProjectCount()
+    {
+        List<Models.Project> projects = await projectService.GetAllProjects();
+        return Ok(projects.Count);
+    }
+
     [HttpGet("{id}", Name = "GetProjectById")]
     public async Task<IActionResult> GetProjectById([FromRoute] int id)
     {

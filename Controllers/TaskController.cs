@@ -14,6 +14,13 @@ public class TaskController(ITaskService taskService) : ControllerBase
         return Ok(await taskService.GetAllTasks());
     }
 
+    [HttpGet("count")]
+    public async Task<IActionResult> GetTaskCount()
+    {
+        List<Models.Task> tasks = await taskService.GetAllTasks();
+        return Ok(tasks.Count);
+    }
+
     [HttpGet("{id}", Name = "GetTaskById")]
     public async Task<IActionResult> GetTaskById([FromRoute] int id)
     {

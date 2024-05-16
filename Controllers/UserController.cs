@@ -14,6 +14,13 @@ public class UserController(IUserService userService) : ControllerBase
         return Ok(await userService.GetAllUsers());
     }
 
+    [HttpGet("count")]
+    public async Task<IActionResult> GetUserCount()
+    {
+        List<Models.User> users = await userService.GetAllUsers();
+        return Ok(users.Count);
+    }
+
     [HttpGet("{id}", Name = "GetUserById")]
     public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
