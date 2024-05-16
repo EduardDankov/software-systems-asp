@@ -21,6 +21,13 @@ public class TaskController(ITaskService taskService) : ControllerBase
         return Ok(tasks.Count);
     }
 
+    [HttpGet("project/{id}")]
+    public async Task<IActionResult> GetTasksByProjectId(int id)
+    {
+        List<Models.Task> tasks = await taskService.GetAllTasks();
+        return Ok(tasks.Where(task => task.ProjectId == id));
+    }
+
     [HttpGet("{id}", Name = "GetTaskById")]
     public async Task<IActionResult> GetTaskById([FromRoute] int id)
     {
