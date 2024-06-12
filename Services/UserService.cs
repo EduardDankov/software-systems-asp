@@ -16,6 +16,12 @@ public class UserService(Database context) : IUserService
         return await context.Users.FindAsync(id);
     }
 
+    public async Task<Models.User?> GetUserByEmail(string email)
+    {
+        var users = await context.Users.Where(user => user.Email == email).ToListAsync();
+        return users.Count > 0 ? users[0] : null;
+    }
+
     public async Task AddUser(Models.User user)
     {
         context.Users.Add(user);
